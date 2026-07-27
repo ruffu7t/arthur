@@ -7,11 +7,9 @@ import httpx
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-# Вшиваем ключи прямо в код, чтобы хостинг их точно не потерял
 TELEGRAM_TOKEN = "8966977184:AAEZYWabJlG1dlQEeXYRrR8r2JO-E8qR9Vc"
 GROQ_API_KEY = "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"
 
-# Подключаемся напрямую из Европы
 ai_client = Groq(
     api_key=GROQ_API_KEY,
     http_client=httpx.Client()
@@ -45,10 +43,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     chat_histories[user_id].append({"role": "user", "content": user_text})
 
-if len(chat_histories[user_id]) > 15:
-    chat_histories[user_id] = [chat_histories[user_id][0]] + chat_histories[user_id][-14:]
-
-        # Исправлена техническая ошибка с вложенными списками
+    if len(chat_histories[user_id]) > 15:
         chat_histories[user_id] = [chat_histories[user_id][0]] + chat_histories[user_id][-14:]
 
     try:
@@ -74,5 +69,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
