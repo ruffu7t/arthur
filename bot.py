@@ -53,7 +53,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             temperature=0.8,
             max_tokens=250
         )
-        bot_response = completion.choices.message.content
+        bot_response = completion.choices[0].message.content
         chat_histories[user_id].append({"role": "assistant", "content": bot_response})
         await update.message.reply_text(bot_response)
     except Exception as e:
