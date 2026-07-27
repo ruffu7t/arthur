@@ -45,7 +45,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     chat_histories[user_id].append({"role": "user", "content": user_text})
 
-    if len(chat_histories[user_id]) > 15:
+if len(chat_histories[user_id]) > 15:
+    chat_histories[user_id] = [chat_histories[user_id][0]] + chat_histories[user_id][-14:]
+
         # Исправлена техническая ошибка с вложенными списками
         chat_histories[user_id] = [chat_histories[user_id][0]] + chat_histories[user_id][-14:]
 
